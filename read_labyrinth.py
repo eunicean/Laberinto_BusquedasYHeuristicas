@@ -19,6 +19,6 @@ try:
         print('File Content:\n', file_content)
 
 except FileNotFoundError:
-    print(f'{file_path} not found.&quot;')
+    print(f'{file_path} not found')
 except Exception as e:
     print(f'An error occurred: {e}')
