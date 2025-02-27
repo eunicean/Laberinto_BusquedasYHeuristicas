@@ -12,11 +12,9 @@ file_path = 'laberintos/' + labyrinths[to_resolve]
 print(file_path)
 try:
     with open(file_path, 'r') as file:
-        # Read the content of the file
-        file_content = file.read()
-        
-        # Print the content
-        print('File Content:\n', file_content)
+        data = []
+        for row in file:
+            data.append([int(x) for x in row.split(',')])
 
 except FileNotFoundError:
     print(f'{file_path} not found')
