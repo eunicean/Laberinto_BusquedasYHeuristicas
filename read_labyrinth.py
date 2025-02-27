@@ -1,3 +1,5 @@
+# TODO: cambiar diferentes procesos a funciones
+
 import os
 
 labyrinths = os.listdir("laberintos")
@@ -20,3 +22,13 @@ except FileNotFoundError:
     print(f'{file_path} not found')
 except Exception as e:
     print(f'An error occurred: {e}')
+
+# Graficando el laberinto desde la matriz
+
+import numpy as np  
+import matplotlib.pyplot as plt 
+
+plt.imshow(data, cmap='binary')  
+plt.xticks([])  # Ocultar marcas de los ejes  
+plt.yticks([])  
+plt.show()
