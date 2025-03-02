@@ -11,6 +11,7 @@ def cargar_laberinto():
     for i, archivo in enumerate(laberintos):
         print(f"{i+1}. {archivo}")
     eleccion = int(input("\n-> ")) - 1
+    n_laberinto = laberintos[eleccion]
     archivo = 'laberintos/' + laberintos[eleccion]
     with open(archivo, 'r') as file:
         laberinto = []
@@ -27,8 +28,8 @@ def encontrar_puntos(laberinto, valor):
                 puntos.append((i, j))
     return puntos
 
-
-def main():
+stay = True
+while(stay):
     laberinto = cargar_laberinto()
 
     # Buscar inicio y meta
@@ -36,7 +37,7 @@ def main():
     metas = encontrar_puntos(laberinto, 3)
     if not inicios or not metas:
         print("No se encontró inicio (2) o meta (3) en el laberinto.")
-        return
+        break
     inicio = inicios[0]
     meta = metas[0]
 
@@ -46,6 +47,7 @@ def main():
     print("2. Depth First Search")
     print("3. Greedy First Search")
     print("4. A*")
+    print("5. Salir")
     algoritmo = int(input("\n-> "))
 
     heuristica = None
@@ -56,7 +58,6 @@ def main():
         heuristica_opcion = int(input("\n-> "))
         heuristica = manhattan if heuristica_opcion == 1 else euclidiana
 
-    
     inicio_tiempo = time.time()
     if algoritmo == 1:
         print("\nAlgoritmo Breadth First Search")
@@ -69,14 +70,17 @@ def main():
         solucion, recorrido = greedy(laberinto, inicio, meta, heuristica)
     elif algoritmo == 4:
         print("\nAlgoritmo A*")
-        return 0 # TODO: falta hacer A*
+        break # TODO: falta hacer A*
+    elif algoritmo == 5:
+        print("Byee :3")
+        stay = False
+        break
     else:
         print("\nAlgoritmo no válido.")
-        return
+        break
     fin_tiempo = time.time()
 
-    if solucion:
-        # Obtener camino solución
+    if solucion and algoritmo != 5 :
         camino = []
         nodo = solucion
         while nodo:
@@ -91,10 +95,6 @@ def main():
     else:
         print("\nNo se encontró solución. :(")
         camino = None
-
-    # animación
+        
     animar_laberinto(laberinto, recorrido, solucion)
 
-
-if __name__ == "__main__":
-    main()
