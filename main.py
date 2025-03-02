@@ -1,6 +1,6 @@
 import os
 import time
-from busqueda import bfs, dfs, greedy
+from busqueda import bfs, dfs, greedy, astar
 from heuristicas import manhattan, euclidiana
 from animacion import animar_laberinto
 
@@ -61,18 +61,18 @@ while(stay):
     inicio_tiempo = time.time()
     if algoritmo == 1:
         print("\nAlgoritmo Breadth First Search")
-        solucion, recorrido = bfs(laberinto, inicio, meta)
+        solucion, recorrido, branching_factor, total_branches = bfs(laberinto, inicio, meta)
     elif algoritmo == 2:
         print("\nAlgoritmo Depth First Search")
-        solucion, recorrido = dfs(laberinto, inicio, meta)
+        solucion, recorrido, branching_factor, total_branches = dfs(laberinto, inicio, meta)
     elif algoritmo == 3:
         print("\nAlgoritmo Greedy First Search")
-        solucion, recorrido = greedy(laberinto, inicio, meta, heuristica)
+        solucion, recorrido, branching_factor, total_branches = greedy(laberinto, inicio, meta, heuristica)
     elif algoritmo == 4:
         print("\nAlgoritmo A*")
-        break # TODO: falta hacer A*
+        solucion, recorrido, branching_factor, total_branches = astar(laberinto, inicio, meta, heuristica)
     elif algoritmo == 5:
-        print("Byee :3")
+        print("Byee")
         stay = False
         break
     else:
@@ -91,9 +91,12 @@ while(stay):
         print(f"¡Solución encontrada! :D")
         print(f"Nodos visitados: {len(recorrido)}")
         print(f"Largo del camino: {len(camino)}")
+        print(f"Branches totales creadas: {total_branches:.2f}")
+        print(f"Branch creadas en promedio por cada nodo expandido: {branching_factor:.2f}")
         print(f"Tiempo de ejecución: {fin_tiempo - inicio_tiempo:.4f} segundos")
     else:
         print("\nNo se encontró solución. :(")
+        print(f"\n Cant. nodos revisados: {total_branches:.2f}")
         camino = None
         
     animar_laberinto(laberinto, recorrido, solucion)
