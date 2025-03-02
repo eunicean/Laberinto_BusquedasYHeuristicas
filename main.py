@@ -91,7 +91,7 @@ while(stay):
         print(f"¡Solución encontrada! :D")
         print(f"Nodos visitados: {len(recorrido)}")
         print(f"Largo del camino: {len(camino)}")
-        print(f"Branches totales creadas: {total_branches:.2f}")
+        print(f"Branches totales creadas: {total_branches}")
         print(f"Branch creadas en promedio por cada nodo expandido: {branching_factor:.2f}")
         print(f"Tiempo de ejecución: {fin_tiempo - inicio_tiempo:.4f} segundos")
     else:
