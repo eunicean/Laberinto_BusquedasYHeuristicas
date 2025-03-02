@@ -7,7 +7,7 @@ labyrinths = os.listdir("laberintos")
 print("Seleccione el numero de archivo que desea abrir:\n")
 for x in range(len(labyrinths)): 
     print(f"{x+1}. {labyrinths[x]}")
-to_resolve = int(input("->")) - 1
+to_resolve = int(input("-> ")) - 1
 
 
 file_path = 'laberintos/' + labyrinths[to_resolve]
