@@ -29,3 +29,28 @@ def bfs(laberinto, inicio, meta):
                 
     return None, recorrido
 
+def dfs(laberinto, inicio, meta):
+    frontera = ColaLIFO()
+    frontera.add(Nodo(inicio))
+    visitados = set()
+    recorrido = []
+
+    while not frontera.empty():
+        actual = frontera.pop()
+        recorrido.append(actual.estado)
+
+        if actual.estado == meta:
+            return actual, recorrido
+        
+        visitados.add(actual.estado)
+
+        for mov in movimientos:
+            nuevo_estado = (actual.estado[0] + mov[0], actual.estado[1] + mov[1])
+            if es_valido(laberinto, nuevo_estado) and nuevo_estado not in visitados:
+                frontera.add(Nodo(nuevo_estado, actual))
+
+    return None, recorrido
+
+# TODO: greddy bfs
+    # TODO: averiguar como calcular/heuristicas
+# TODO: A*
