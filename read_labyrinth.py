@@ -1,6 +1,7 @@
 # TODO: cambiar diferentes procesos a funciones
 
 import os
+import matplotlib.pyplot as plt 
 
 labyrinths = os.listdir("laberintos")
 
@@ -25,8 +26,6 @@ except Exception as e:
 
 # Graficando el laberinto desde la matriz
 
-import numpy as np  
-import matplotlib.pyplot as plt 
 
 plt.imshow(data, cmap='binary')  
 plt.xticks([])  # Ocultar marcas de los ejes  
