@@ -1,5 +1,8 @@
-from colas import ColaFIFO, ColaLIFO, ColaPRIORITY
+from colas.fifo import ColaFIFO
+from colas.lifo import ColaLIFO
+from colas.prio import ColaPRIORITY
 from nodo import Nodo
+from heuristicas import manhattan, euclidiana
 
 movimientos = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
@@ -51,6 +54,27 @@ def dfs(laberinto, inicio, meta):
 
     return None, recorrido
 
-# TODO: greddy bfs
-    # TODO: averiguar como calcular/heuristicas
+def greedy(laberinto, inicio, meta, heuristica):
+    frontera = ColaPRIORITY()
+    frontera.add(Nodo(inicio, heuristica=heuristica(inicio, meta)))
+    visitados = set()
+    recorrido = []
+
+    while not frontera.empty():
+        actual = frontera.pop()
+        recorrido.append(actual.estado)
+
+        if actual.estado == meta:
+            return actual, recorrido
+        
+        visitados.add(actual.estado)
+
+        for mov in movimientos:
+            nuevo_estado = (actual.estado[0] + mov[0], actual.estado[1] + mov[1])
+            if es_valido(laberinto, nuevo_estado) and nuevo_estado not in visitados:
+                frontera.add(Nodo(nuevo_estado, actual, heuristica=heuristica(nuevo_estado, meta)))
+
+    return None, recorrido
+
+
 # TODO: A*
