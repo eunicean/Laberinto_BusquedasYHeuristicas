@@ -1,6 +1,6 @@
 class Nodo:
     def __init__(self, estado, padre=None, costo=0, heuristica=0):
-        self.estado = estado  # (fila, columna)
+        self.estado = estado
         self.padre = padre
         self.costo = costo
         self.heuristica = heuristica
