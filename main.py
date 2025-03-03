@@ -11,7 +11,7 @@ def cargar_laberinto():
     for i, archivo in enumerate(laberintos):
         print(f"{i+1}. {archivo}")
     eleccion = int(input("\n-> ")) - 1
-    n_laberinto = laberintos[eleccion]
+
     archivo = 'laberintos/' + laberintos[eleccion]
     with open(archivo, 'r') as file:
         laberinto = []
@@ -51,6 +51,7 @@ while(stay):
     algoritmo = int(input("\n-> "))
 
     heuristica = None
+    heuristica_opcion = 0
     if algoritmo in [3, 4]:
         print("\nSeleccione la heurística:")
         print("1. Distancia Manhattan")
@@ -60,19 +61,31 @@ while(stay):
 
     inicio_tiempo = time.time()
     if algoritmo == 1:
-        print("\nAlgoritmo Breadth First Search")
+        print("\n+--------------------------------+")
+        print("| Algoritmo Breadth First Search ")
+        print("+--------------------------------+")
         solucion, recorrido, branching_factor, total_branches = bfs(laberinto, inicio, meta)
     elif algoritmo == 2:
-        print("\nAlgoritmo Depth First Search")
+        print("\n+------------------------------+")
+        print("| Algoritmo Depth First Search |")
+        print("+------------------------------+")
         solucion, recorrido, branching_factor, total_branches = dfs(laberinto, inicio, meta)
     elif algoritmo == 3:
-        print("\nAlgoritmo Greedy First Search")
+        print("\n+-------------------------------+")
+        print("| Algoritmo Greedy First Search |")
+        print("+-------------------------------+")
+        if(heuristica_opcion!= 0):
+            print("|           Manhattan           |\n+-------------------------------+" if heuristica_opcion==1 else "|           Euclidiana          |\n+-------------------------------+")
         solucion, recorrido, branching_factor, total_branches = greedy(laberinto, inicio, meta, heuristica)
     elif algoritmo == 4:
-        print("\nAlgoritmo A*")
+        print("\n+--------------+")
+        print("| Algoritmo A* | ")
+        print("+--------------+")
+        if(heuristica_opcion!= 0):
+            print("|   Manhattan  |\n+-------------+" if heuristica_opcion==1 else "|  Euclidiana  |\n+--------------+")
         solucion, recorrido, branching_factor, total_branches = astar(laberinto, inicio, meta, heuristica)
     elif algoritmo == 5:
-        print("Byee")
+        print("¡Hasta la próxima!")
         stay = False
         break
     else:
