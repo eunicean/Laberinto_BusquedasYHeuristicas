@@ -3,7 +3,7 @@ import time
 from busqueda import bfs, dfs, greedy, astar
 from heuristicas import manhattan, euclidiana
 from animacion import animar_laberinto
-
+from inicioRandom import cambiar_inicio_aleatorio
 
 def cargar_laberinto():
     laberintos = os.listdir("laberintos")
@@ -32,7 +32,11 @@ stay = True
 while(stay):
     laberinto = cargar_laberinto()
 
-    # Buscar inicio y meta
+    usar_inicio_aleatorio = input("\n¿Desea cambiar el punto de inicio aleatoriamente? (s/n): ").lower()
+    if usar_inicio_aleatorio == 's':
+        inicio = cambiar_inicio_aleatorio(laberinto)
+        print(f"Nuevo punto de inicio: {inicio}")
+
     inicios = encontrar_puntos(laberinto, 2)
     metas = encontrar_puntos(laberinto, 3)
     if not inicios or not metas:
